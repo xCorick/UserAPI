@@ -255,7 +255,10 @@ namespace UserAPI.Data.Implementation
             {
                 await _unitOfWork.EnsureConnectionAsync();
 
-                await using var command = new NpgsqlCommand(sql, _unitOfWork.Connection, _unitOfWork.Transaction);
+                await using var command = new NpgsqlCommand(sql, _unitOfWork.Connection, _unitOfWork.Transaction)
+                {
+                    CommandType = CommandType.Text
+                };
 
                 command.Parameters.AddWithValue("@Clave", cliente.Clave!);
                 command.Parameters.AddWithValue("@Nombre", cliente.Nombre!);
