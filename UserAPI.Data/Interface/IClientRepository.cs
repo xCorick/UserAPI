@@ -13,8 +13,8 @@ namespace UserAPI.Data.Interface
         Task<Cliente> CreateAsync(ClienteDTO cliente);
         Task<Cliente> UpdateAsync(ClienteDTO cliente);
         Task<Cliente> DeleteAsync(string clave);
-        Task<List<Cliente>> GetClientes();
-        Task<List<Cliente>> GetClientesPage(PaginationFilter pagination);
-        Task<Cliente> GetCliente(string clave);
+        Task<List<Cliente>> GetClientesAsync();
+        Task<List<Cliente>> GetClientesPageAsync(PaginationFilter pagination);
+        Task<Cliente> GetClienteAsync(string clave);
     }
 }
