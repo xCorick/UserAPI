@@ -18,7 +18,7 @@ namespace UserAPI.DataAccess.Implemetation
         public DatabaseConnectionFactory(IConfiguration configuration, ILogger<DatabaseConnectionFactory> logger)
         {
             _databaseConnectionString = configuration.GetConnectionString("ApplicationDBServer")
-                ?? throw new ArgumentNullException(nameof(_databaseConnectionString), "Connection string is missing");
+                ?? configuration["CONNECTION_STRING"] ?? throw new ArgumentNullException(nameof(_databaseConnectionString), "Connection string is missing");
             _logger = logger;
         }
         public async Task<NpgsqlConnection> CreateConnectionAsync(CancellationToken cancellationToken = default)
