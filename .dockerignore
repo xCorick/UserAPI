@@ -1,0 +1,13 @@
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.vs/
+.vscode/
+.git/
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+*.md
