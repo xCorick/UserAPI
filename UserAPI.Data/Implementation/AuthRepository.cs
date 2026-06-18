@@ -92,7 +92,9 @@ namespace UserAPI.Data.Implementation
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
+                expires: DateTime.UtcNow.AddMinutes(
+                    int.Parse(_configuration["Jwt:ExpirationMinutes"]!)
+                ),
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler()
