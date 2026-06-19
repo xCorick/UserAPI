@@ -119,9 +119,9 @@ namespace UserAPI.Data.Implementation
             {
                 throw;
             }
-            catch(PostgresException ex)
+            catch(PostgresException)
             {
-                throw new Exception(ex.Message, ex);
+                throw;
             }
             catch(Exception ex)
             {
