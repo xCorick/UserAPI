@@ -59,9 +59,9 @@ namespace UserAPI.Data.Implementation
                     };
                 }
             }
-            catch (PostgresException ex)
+            catch (PostgresException)
             {
-                throw new Exception(ex.Message, ex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -102,9 +102,9 @@ namespace UserAPI.Data.Implementation
                     };
                 }
             }
-            catch (PostgresException ex)
+            catch (PostgresException)
             {
-                throw new Exception(ex.Message, ex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -145,9 +145,9 @@ namespace UserAPI.Data.Implementation
                     };
                 }
             }
-            catch (PostgresException ex)
+            catch (PostgresException)
             {
-                throw new Exception(ex.Message, ex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -185,9 +185,9 @@ namespace UserAPI.Data.Implementation
                     );
                 }
             }
-            catch (PostgresException ex)
+            catch (PostgresException)
             {
-                throw new Exception(ex.Message, ex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -232,9 +232,9 @@ namespace UserAPI.Data.Implementation
                 }
                 return clientes;
             }
-            catch (PostgresException ex)
+            catch (PostgresException)
             {
-                throw new Exception(ex.Message, ex);
+                throw;
             }
             catch (Exception ex)
             {
@@ -280,9 +280,9 @@ namespace UserAPI.Data.Implementation
                 }
                 return new Cliente();
             }
-            catch (PostgresException ex)
+            catch (PostgresException)
             {
-                throw new Exception(sql, ex);
+                throw;
             }
             catch (Exception ex)
             {

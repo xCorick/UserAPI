@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using System.Text;
 using UserAPI.Data;
 using UserAPI.Data.Implementation;
@@ -11,6 +13,8 @@ using UserAPI.DataAccess.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtSettings = builder.Configuration.GetSection("Jwt");
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"https://*:{port}");
 
 // Add services to the container.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -83,6 +87,39 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        var exception =
+            context.Features.Get<IExceptionHandlerFeature>();
+
+        switch (exception?.Error)
+        {
+            case UnauthorizedAccessException:
+                context.Response.StatusCode = 401;
+                break;
+
+            case PostgresException pgEx when pgEx.SqlState == "P0001":
+                context.Response.StatusCode = 400;
+                break;
+
+            case PostgresException pgEx when pgEx.SqlState == "P0409":
+                context.Response.StatusCode = 404;
+                break;
+
+            default:
+                context.Response.StatusCode = 500;
+                break;
+        }
+
+        await context.Response.WriteAsJsonAsync(new
+        {
+            message = exception?.Error.Message
+        });
+    });
+});
 
 app.UseSwagger();
 
