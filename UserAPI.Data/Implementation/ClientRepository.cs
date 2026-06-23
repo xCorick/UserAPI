@@ -135,6 +135,10 @@ namespace UserAPI.Data.Implementation
 
                 if (await reader.ReadAsync())
                 {
+                    if (reader.IsDBNull(reader.GetOrdinal("clave")))
+                    {
+                        return new (); // No se encontró el cliente
+                    }
                     return new Cliente
                     {
                         Clave = reader.GetString(reader.GetOrdinal("clave")),
