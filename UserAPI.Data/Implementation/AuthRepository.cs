@@ -169,7 +169,8 @@ namespace UserAPI.Data.Implementation
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.UserName!)
+                new Claim(ClaimTypes.Name, user.UserName!),
+                new Claim(ClaimTypes.Role, user.Rol.ToString())
             };
 
             var key = new SymmetricSecurityKey(
