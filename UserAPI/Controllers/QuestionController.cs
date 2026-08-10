@@ -14,14 +14,7 @@ namespace UserAPI.Controllers
     {
         private readonly IQuestionRepository _questionRepository;
         public QuestionController(IQuestionRepository questionRepository) => _questionRepository = questionRepository;
-        // GET: api/<QuestionController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
 
-        // GET api/<QuestionController>/5
         [HttpGet("Get/QuestionWithAnswers/Page")]
         public async Task<IActionResult> GetQuestionWithAnswersPageAsync([FromQuery] QuestionPaginationFilters filters)
         {
@@ -43,7 +36,6 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
-        // POST api/<QuestionController>
         [HttpPost("Create/QuestionWithOptions")]
         public async Task<IActionResult> CreateQuestionWithOptionsAsync([FromBody] Questions question)
         {
@@ -51,7 +43,6 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
-        // PUT api/<QuestionController>/5
         [HttpPut("Update/QuestionAndOptions")]
         public async Task<IActionResult> UpdateQuestionAndOptionsAsync([FromBody] Questions question)
         {
@@ -65,11 +56,5 @@ namespace UserAPI.Controllers
             var result = await _questionRepository.DeleteQuestionAsync(Id);
             return Ok(result);
         }
-
-        //// DELETE api/<QuestionController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

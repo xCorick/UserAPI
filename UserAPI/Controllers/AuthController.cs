@@ -35,7 +35,7 @@ namespace UserAPI.Controllers
 
         // POST api/<AuthController>
         [HttpPost("LogIn")]
-        public async Task<IActionResult> Login(User login)
+        public async Task<IActionResult> Login(LoginRequest login)
         {
             var user = await _authRepository.SignInAsync(
                 login.UserName!,

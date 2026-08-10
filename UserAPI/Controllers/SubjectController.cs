@@ -13,7 +13,7 @@ namespace UserAPI.Controllers
         private readonly ISubjectRepository _subjectRepository;
 
         public SubjectController(ISubjectRepository subjectRepository) => _subjectRepository = subjectRepository;
-        // GET: api/<SubjectController>
+
         [HttpGet("Get/SubjectsForOptions")]
         public async Task<IActionResult> GetSubjectsForOptionsAsync()
         {
@@ -28,14 +28,6 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
-        // GET api/<SubjectController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST api/<SubjectController>
         [HttpPost("Create/Subject")]
         public async Task<IActionResult> CreateSubjectAsync([FromBody] Subjects subject)
         {
@@ -43,7 +35,6 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
-        // PUT api/<SubjectController>/5
         [HttpPut("Update/Subject")]
         public async Task<IActionResult> UpdateSubjectAsync([FromBody] Subjects subject)
         {
@@ -58,10 +49,5 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
-        // DELETE api/<SubjectController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

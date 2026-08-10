@@ -15,7 +15,7 @@ namespace UserAPI.Core.Models
         public string? Name { get; set; }
         [Required (ErrorMessage = "El nombre de usuario es requerido")]
         public string? UserName { get; set; }
-        [Required (ErrorMessage = "La contraseña es requerida")]
+        //[Required (ErrorMessage = "La contraseña es requerida")]
         public string? Password { get; set; }
         [Required (ErrorMessage = "El rol es requerido")]
         public RoleEnum Rol { get; set; }
