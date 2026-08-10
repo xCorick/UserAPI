@@ -53,9 +53,14 @@ namespace UserAPI.Controllers
         [HttpGet("GetSession")]
         public IActionResult GetSession()
         {
+            // Obtener el rol desde los claims
+            var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+            // O también: User.FindFirst("role")?.Value
+
             return Ok(new
             {
-                UserName = User.Identity?.Name
+                UserName = User.Identity?.Name,
+                Role = roleClaim // o "Sin rol" si es null
             });
         }
 
