@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Npgsql;
 using System.Text;
+using UserAPI.Core.Implementation;
+using UserAPI.Core.Interface;
 using UserAPI.Data;
 using UserAPI.Data.Implementation;
 using UserAPI.Data.Interface;
@@ -21,6 +23,9 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IScoreRepository, ScoreRepository>();
 
 builder.Services.AddCors(options =>
 {
