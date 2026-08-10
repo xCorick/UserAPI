@@ -15,7 +15,6 @@ namespace UserAPI.Controllers
 
         public ScoreController(IScoreRepository scoreRepository) => _scoreRepository = scoreRepository;
 
-        // GET api/<ScoreController>/5
         [HttpGet("Get/GeneralProgress/{Id}")]
         public async Task<IActionResult> GetGeneralProgressAsync(Guid Id)
         {
@@ -30,7 +29,6 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
-        // POST api/<ScoreController>
         [HttpPost("Create/Score")]
         public async Task<IActionResult> CreateScoreAsync([FromBody] Scores score)
         {
