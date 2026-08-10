@@ -13,5 +13,9 @@ namespace UserAPI.Data.Interface
         Task SignOutAsync();
         string GenerateToken(User user);
         Task<User> CreateUserAsync(User user);
+        Task<List<User>> GetUsersAsync();
+        Task<User> UpdateUserAsync(User user);
+        Task<User> DeleteUserAsync(Guid Id);
+        Task<User> GetUserByIdAsync(Guid Id);
     }
 }

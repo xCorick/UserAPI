@@ -66,6 +66,33 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
+        [HttpPut("Update/User")]
+        public async Task<IActionResult> UpdateUserAsync(User user)
+        {
+            var result = await _authRepository.UpdateUserAsync(user);
+            return Ok(result);
+        }
+
+        [HttpGet("Get/Users")]
+        public async Task<IActionResult> GetUsersAsync()
+        {
+            var result = await _authRepository.GetUsersAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("Get/User/{Id}")]
+        public async Task<IActionResult> GetUserByIdAsync(Guid Id)
+        {
+            var result = await _authRepository.GetUserByIdAsync(Id);
+            return Ok(result);
+        }
+
+        [HttpPut("Delete/User/{Id}")]
+        public async Task<IActionResult> DeleteUserAsync(Guid Id)
+        {
+            var result = await _authRepository.DeleteUserAsync(Id);
+            return Ok(result);
+        }
         //// PUT api/<AuthController>/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)

@@ -30,7 +30,6 @@ namespace UserAPI.Controllers
         public async Task<IActionResult> GetClienteAsync(string clave)
         {
             var result = await _clientRepository.GetClienteAsync(clave);
-            Console.WriteLine(result);
             return Ok(result);
         }
 
