@@ -335,7 +335,8 @@ namespace UserAPI.Data.Implementation
                 return new User
                 {
                     UserName = reader.GetString(reader.GetOrdinal("username")),
-                    Password = reader.GetString(reader.GetOrdinal("passwd"))
+                    Password = reader.GetString(reader.GetOrdinal("passwd")),
+                    Rol = (RoleEnum)reader.GetInt32(reader.GetOrdinal("rol"))
                 };
             }
             return new User();

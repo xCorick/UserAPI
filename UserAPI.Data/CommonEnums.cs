@@ -9,6 +9,6 @@ namespace UserAPI.Core
     public enum RoleEnum
     {
         USER,
-        NAME
+        ADMIN
     }
 }
