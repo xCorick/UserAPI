@@ -122,7 +122,7 @@ namespace UserAPI.Core.Implementation
 
                 await using var reader = await command.ExecuteReaderAsync();
 
-                if (await reader.ReadAsync())
+                while (await reader.ReadAsync())
                 {
                     subjects.Add(new Subjects
                     {
@@ -157,7 +157,7 @@ namespace UserAPI.Core.Implementation
 
                 await using var reader = await command.ExecuteReaderAsync();
 
-                if (await reader.ReadAsync())
+                while (await reader.ReadAsync())
                 {
                     subjects.Add(new Subjects
                     {
