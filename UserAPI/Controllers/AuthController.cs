@@ -55,10 +55,12 @@ namespace UserAPI.Controllers
         {
             // Obtener el rol desde los claims
             var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+            var idClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             // O también: User.FindFirst("role")?.Value
 
             return Ok(new
             {
+                Id = idClaim,
                 UserName = User.Identity?.Name,
                 Role = roleClaim // o "Sin rol" si es null
             });
