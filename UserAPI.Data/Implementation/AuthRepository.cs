@@ -170,7 +170,8 @@ namespace UserAPI.Data.Implementation
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName!),
-                new Claim(ClaimTypes.Role, user.Rol.ToString())
+                new Claim(ClaimTypes.Role, user.Rol.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
             var key = new SymmetricSecurityKey(
@@ -334,6 +335,7 @@ namespace UserAPI.Data.Implementation
             {
                 return new User
                 {
+                    Id = reader.GetGuid(reader.GetOrdinal("id")),
                     UserName = reader.GetString(reader.GetOrdinal("username")),
                     Password = reader.GetString(reader.GetOrdinal("passwd")),
                     Rol = (RoleEnum)reader.GetInt32(reader.GetOrdinal("rol"))
