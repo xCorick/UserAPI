@@ -29,6 +29,13 @@ namespace UserAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Get/UserGlobalProgress/{Id}")]
+        public async Task<IActionResult> GetUserGlobalProgressAsync(Guid Id)
+        {
+            var result = await _scoreRepository.GetUserGlobalProgressAsync(Id);
+            return Ok(result);
+        }
+
         [HttpPost("Create/Score")]
         public async Task<IActionResult> CreateScoreAsync([FromBody] Scores score)
         {

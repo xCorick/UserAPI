@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using UserAPI.Core.Interface;
 using UserAPI.Core.Models;
 using UserAPI.Core.Models.Pagination;
+using UserAPI.Core.Models.SubjectProgress;
 using UserAPI.DataAccess.Interface;
 
 namespace UserAPI.Core.Implementation
@@ -158,6 +159,54 @@ namespace UserAPI.Core.Implementation
             catch (Exception ex)
             {
                 throw new Exception("Unexpected error during getting scores paged", ex);
+            }
+        }
+
+        public async Task<UserGlobalProgress> GetUserGlobalProgressAsync(Guid Id)
+        {
+            const string sql = "select encriptacion.get_user_global_progress(" +
+                "p_id := @Id" +
+                ") as result;";
+
+            try
+            {
+                await _unitOfWork.EnsureConnectionAsync();
+
+                await using var command = new NpgsqlCommand(
+                    sql,
+                    _unitOfWork.Connection,
+                    _unitOfWork.Transaction
+                )
+                {
+                    CommandType = CommandType.Text
+                };
+
+                command.Parameters.AddWithValue("@Id", Id);
+
+                await using var reader = await command.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    var response = JsonSerializer.Deserialize<UserGlobalProgress>(
+                        reader.GetString("result"),
+                        serializeOptionsJson
+                    );
+
+                    return response ?? new UserGlobalProgress();
+                }
+
+                return new UserGlobalProgress();
+            }
+            catch (PostgresException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(
+                    "Unexpected error during getting user global progress",
+                    ex
+                );
             }
         }
     }
