@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UserAPI.Core.Models;
 using UserAPI.Core.Models.Pagination;
+using UserAPI.Core.Models.SubjectProgress;
 
 namespace UserAPI.Core.Interface
 {
@@ -13,5 +14,6 @@ namespace UserAPI.Core.Interface
         Task<Scores> CreateScoreAsync(Scores scores);
         Task<Progress> GetGeneralProgressAsync(Guid Id);
         Task<List<User>> GetLastestScoresPageAsync(ScorePaginationFilters filters);
+        Task<UserGlobalProgress> GetUserGlobalProgressAsync(Guid Id);
     }
 }
