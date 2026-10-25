@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using UserAPI.Core.Models;
-using UserAPI.Data.Interface;
+using UserAPI.Application.DTOs;
+using UserAPI.Application.Interfaces.Services;
+using UserAPI.Domain.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,34 +13,21 @@ namespace UserAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _authRepository;
-        public AuthController(IAuthRepository authRepository)
+        private readonly IAuthService _authService;
+        public AuthController(IAuthService authService)
         {
-            _authRepository = authRepository;
+            _authService = authService;
         }
-        //// GET: api/<AuthController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/<AuthController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST api/<AuthController>
         [HttpPost("LogIn")]
         public async Task<IActionResult> Login(LoginRequest login)
         {
-            var user = await _authRepository.SignInAsync(
+            var user = await _authService.SignInAsync(
                 login.UserName!,
                 login.Password!);
 
-            var token = _authRepository.GenerateToken(user);
+            var token = _authService.GenerateToken(user);
 
             return Ok(new
             {
@@ -69,47 +55,36 @@ namespace UserAPI.Controllers
         [HttpPost("Create/User")]
         public async Task<IActionResult> CreateUserAsync(User user)
         {
-            var result = await _authRepository.CreateUserAsync(user);
+            var result = await _authService.CreateUserAsync(user);
             return Ok(result);
         }
 
         [HttpPut("Update/User")]
         public async Task<IActionResult> UpdateUserAsync(User user)
         {
-            var result = await _authRepository.UpdateUserAsync(user);
+            var result = await _authService.UpdateUserAsync(user);
             return Ok(result);
         }
 
         [HttpGet("Get/Users")]
         public async Task<IActionResult> GetUsersAsync()
         {
-            var result = await _authRepository.GetUsersAsync();
+            var result = await _authService.GetUsersAsync();
             return Ok(result);
         }
 
         [HttpGet("Get/User/{Id}")]
         public async Task<IActionResult> GetUserByIdAsync(Guid Id)
         {
-            var result = await _authRepository.GetUserByIdAsync(Id);
+            var result = await _authService.GetUserByIdAsync(Id);
             return Ok(result);
         }
 
         [HttpPut("Delete/User/{Id}")]
         public async Task<IActionResult> DeleteUserAsync(Guid Id)
         {
-            var result = await _authRepository.DeleteUserAsync(Id);
+            var result = await _authService.DeleteUserAsync(Id);
             return Ok(result);
         }
-        //// PUT api/<AuthController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<AuthController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

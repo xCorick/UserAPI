@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UserAPI.Core.Interface;
-using UserAPI.Core.Models;
-using UserAPI.Core.Models.Pagination;
+using UserAPI.Application.DTOs;
+using UserAPI.Application.Interfaces.Services;
+using UserAPI.Domain.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,35 +11,35 @@ namespace UserAPI.Controllers
     [ApiController]
     public class ScoreController : ControllerBase
     {
-        private readonly IScoreRepository _scoreRepository;
+        private readonly IScoreService _scoreService;
 
-        public ScoreController(IScoreRepository scoreRepository) => _scoreRepository = scoreRepository;
+        public ScoreController(IScoreService scoreService) => _scoreService = scoreService;
 
         [HttpGet("Get/GeneralProgress/{Id}")]
         public async Task<IActionResult> GetGeneralProgressAsync(Guid Id)
         {
-            var result = await _scoreRepository.GetGeneralProgressAsync(Id);
+            var result = await _scoreService.GetGeneralProgressAsync(Id);
             return Ok(result);
         }
 
         [HttpGet("Get/LastestScores/Page")]
         public async Task<IActionResult> GetLastestScoresPageAsync([FromQuery] ScorePaginationFilters filters)
         {
-            var result = await _scoreRepository.GetLastestScoresPageAsync(filters);
+            var result = await _scoreService.GetLastestScoresPageAsync(filters);
             return Ok(result);
         }
 
         [HttpGet("Get/UserGlobalProgress/{Id}")]
         public async Task<IActionResult> GetUserGlobalProgressAsync(Guid Id)
         {
-            var result = await _scoreRepository.GetUserGlobalProgressAsync(Id);
+            var result = await _scoreService.GetUserGlobalProgressAsync(Id);
             return Ok(result);
         }
 
         [HttpPost("Create/Score")]
         public async Task<IActionResult> CreateScoreAsync([FromBody] Scores score)
         {
-            var result = await _scoreRepository.CreateScoreAsync(score);
+            var result = await _scoreService.CreateScoreAsync(score);
             return Ok(result);
         }
     }

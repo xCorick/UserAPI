@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using UserAPI.Data.DTOs;
-using UserAPI.Data.Interface;
-using UserAPI.Data.Models;
+using UserAPI.Application.DTOs;
+using UserAPI.Application.Interfaces.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,17 +10,17 @@ namespace UserAPI.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly IClientRepository _clientRepository;
-        public ClientController(IClientRepository clientRepository)
+        private readonly IClientService _clientService;
+        public ClientController(IClientService clientService)
         {
-            _clientRepository = clientRepository;
+            _clientService = clientService;
         }
 
         // GET: api/<ClientController>
         [HttpGet("Get/Clientes")]
         public async Task<IActionResult> GetClientesAsync()
         {
-            var result = await _clientRepository.GetClientesAsync();
+            var result = await _clientService.GetClientesAsync();
             return Ok(result);
         }
 
@@ -29,14 +28,14 @@ namespace UserAPI.Controllers
         [HttpGet("Get/Cliente{clave}")]
         public async Task<IActionResult> GetClienteAsync(string clave)
         {
-            var result = await _clientRepository.GetClienteAsync(clave);
+            var result = await _clientService.GetClienteAsync(clave);
             return Ok(result);
         }
 
         [HttpGet("Get/Clientes/Page")]
         public async Task<IActionResult> GetClientesPageAsync([FromQuery] PaginationFilter pagination)
         {
-            var result = await _clientRepository.GetClientesPageAsync(pagination);
+            var result = await _clientService.GetClientesPageAsync(pagination);
             return Ok(result);
         }
 
@@ -44,7 +43,7 @@ namespace UserAPI.Controllers
         [HttpPost("Create/Cliente")]
         public async Task<IActionResult> CreateAsync([FromBody] ClienteDTO cliente)
         {
-            var result = await _clientRepository.CreateAsync(cliente);
+            var result = await _clientService.CreateAsync(cliente);
             return Ok(result);
         }
 
@@ -52,7 +51,7 @@ namespace UserAPI.Controllers
         [HttpPut("Update/Cliente")]
         public async Task<IActionResult> UpdateAsync([FromBody] ClienteDTO cliente)
         {
-            var result = await _clientRepository.UpdateAsync(cliente);
+            var result = await _clientService.UpdateAsync(cliente);
             return Ok(result);
         }
 
@@ -60,7 +59,7 @@ namespace UserAPI.Controllers
         [HttpDelete("{clave}")]
         public async Task<IActionResult> DeleteAsync(string clave)
         {
-            var result = await _clientRepository.DeleteAsync(clave);
+            var result = await _clientService.DeleteAsync(clave);
             return Ok(result);
         }
     }

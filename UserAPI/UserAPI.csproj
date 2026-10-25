@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UserAPI.DataAccess\UserAPI.DataAccess.csproj" />
-    <ProjectReference Include="..\UserAPI.Data\UserAPI.Core.csproj" />
+    <ProjectReference Include="..\UserAPI.Application\UserAPI.Application.csproj" />
+    <ProjectReference Include="..\UserAPI.Infrastructure\UserAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
